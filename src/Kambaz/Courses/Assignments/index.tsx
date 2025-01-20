@@ -38,7 +38,6 @@ export default function Assignments() {
                     <li className="wd-assignment-list-item"><strong>Due</strong> May 27 at 11:59pm | 100 pts</li>
                 </ul>
             </li>
-
         </ul>
 
             
