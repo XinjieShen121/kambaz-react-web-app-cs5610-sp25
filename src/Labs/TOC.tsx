@@ -17,7 +17,6 @@ export default function TOC() {
         <Nav.Link href="#/Kambaz">Kambaz</Nav.Link>
       </Nav.Item>
       <Nav.Item>
-        {/* Add the required ID attribute */}
         <Nav.Link 
           href="https://github.com/XinjieShen121/kambaz-react-web-app-cs5610-sp25.git" 
           id="wd-github"
