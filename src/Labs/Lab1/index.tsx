@@ -1,6 +1,6 @@
 export default function Lab1() {
     return (
-    <div id="wd-lab1" className="ms-4">
+    <div id="wd-lab1" className="ms-3">
     <h2>Lab 1</h2>
     <h3>HTML Examples</h3>
     <div id="wd-h-tag">
