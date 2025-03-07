@@ -1,6 +1,10 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export default function AccountNavigation() {
+  const { currentUser } = useSelector((state: any) => state.accountReducer);
+  const links = currentUser ? ["Profile"] : ["Signin", "Signup"];
+  const { pathname } = useLocation();
   return (
     <div id="wd-account-navigation" className="list-group fs-5 rounded-0">
       <NavLink
@@ -8,7 +12,9 @@ export default function AccountNavigation() {
         id="wd-account-signin-link"
         className={({ isActive }) =>
           `list-group-item border-0 ${
-            isActive ? "text-black fw-bold border-start border-3 border-dark ps-3" : "text-danger ps-3"
+            isActive
+              ? "text-black fw-bold border-start border-3 border-dark ps-3"
+              : "text-danger ps-3"
           }`
         }
       >
@@ -20,7 +26,9 @@ export default function AccountNavigation() {
         id="wd-account-signup-link"
         className={({ isActive }) =>
           `list-group-item border-0 ${
-            isActive ? "text-black fw-bold border-start border-3 border-dark ps-3" : "text-danger ps-3"
+            isActive
+              ? "text-black fw-bold border-start border-3 border-dark ps-3"
+              : "text-danger ps-3"
           }`
         }
       >
@@ -32,7 +40,9 @@ export default function AccountNavigation() {
         id="wd-account-profile-link"
         className={({ isActive }) =>
           `list-group-item border-0 ${
-            isActive ? "text-black fw-bold border-start border-3 border-dark ps-3" : "text-danger ps-3"
+            isActive
+              ? "text-black fw-bold border-start border-3 border-dark ps-3"
+              : "text-danger ps-3"
           }`
         }
       >
