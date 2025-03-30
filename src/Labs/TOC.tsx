@@ -5,8 +5,6 @@ import { useLocation } from "react-router";
 export default function TOC() {
   const { pathname } = useLocation();
   return (
-
-
     <ul className="nav nav-pills" id="wd-toc">
       <li className="nav-item">
         <a id="wd-a" href="#/Labs" className="nav-link">
@@ -58,7 +56,7 @@ export default function TOC() {
           Lab 5
         </a>
       </li>
-      
+
       <li className="nav-item">
         <a id="wd-k" href="#/Kambaz" className="nav-link">
           Kambaz
@@ -71,10 +69,19 @@ export default function TOC() {
           target="_blank"
           className="nav-link"
         >
-          My GitHub
+          My GitHub(React)
+        </a>
+      </li>
+      <li className="nav-item">
+        <a
+          id="wd-node"
+          href="https://github.com/XinjieShen121/kambaz-node-server-app.git"
+          target="_blank"
+          className="nav-link"
+        >
+          My GitHub (Node Server)
         </a>
       </li>
     </ul>
   );
 }
-
