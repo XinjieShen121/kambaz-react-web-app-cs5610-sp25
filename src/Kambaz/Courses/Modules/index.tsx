@@ -17,7 +17,7 @@ import {
   deleteModule,
 } from "./reducer";
 import { useSelector, useDispatch } from "react-redux";
-import * as coursesClient from "../client";
+// import * as coursesClient from "../client";
 import * as modulesClient from "./client";
 
 export default function Modules() {
@@ -61,7 +61,7 @@ export default function Modules() {
   // };
 
 
-  
+
   // const fetchModules = async () => {
   //   const modules = await coursesClient.findModulesForCourse(cid as string);
   //   dispatch(setModules(modules));
