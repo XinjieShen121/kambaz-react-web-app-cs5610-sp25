@@ -194,10 +194,126 @@
 //   ) : null;
 // }
 
+
+
+
+
+// import { useParams, Link, useNavigate } from "react-router-dom";
+// import { useSelector, useDispatch } from "react-redux";
+// // import { useState, useEffect } from "react";
+// import { useState } from "react";
+// import * as client from "./client";
+// import { setAssignments } from "./reducer";
+
+// export default function AssignmentEditor() {
+//   const { cid, aid } = useParams();
+//   const dispatch = useDispatch();
+//   const navigate = useNavigate();
+//   const { assignments } = useSelector((state: any) => state.assignmentsReducer);
+//   const { currentUser } = useSelector((state: any) => state.accountReducer);
+//   const isFaculty = currentUser?.role === "FACULTY";
+
+//   const existing = assignments.find((a: any) => a._id === aid);
+//   const [assignment, setAssignment] = useState(
+//     existing || {
+//       title: "",
+//       description: "",
+//       points: 100,
+//       course: cid,
+//       dueDate: "",
+//       availableFrom: "",
+//       availableUntil: "",
+//       submissionType: "Online",
+//     }
+//   );
+
+//   const handleSave = async () => {
+//     if (!cid) return;
+//     if (existing) {
+//       await client.updateAssignment(assignment);
+//     } else {
+//       await client.createAssignment(cid, assignment);
+//     }
+//     const updated = await client.findAssignmentsForCourse(cid);
+//     dispatch(setAssignments(updated));
+//     navigate(`/Kambaz/Courses/${cid}/Assignments`);
+//   };
+
+//   return isFaculty ? (
+//     <div className="container mt-4 ms-5 p-4" style={{ maxWidth: "960px" }}>
+//       <div className="mb-4">
+//         <label className="form-label fw-bold">Assignment Name</label>
+//         <input
+//           value={assignment.title}
+//           className="form-control"
+//           onChange={(e) => setAssignment({ ...assignment, title: e.target.value })}
+//         />
+//       </div>
+
+//       <textarea
+//         className="form-control mb-4"
+//         rows={6}
+//         placeholder="Enter description"
+//         value={assignment.description}
+//         onChange={(e) => setAssignment({ ...assignment, description: e.target.value })}
+//       ></textarea>
+
+//       <div className="mb-4">
+//         <label className="form-label fw-bold">Points</label>
+//         <input
+//           type="number"
+//           className="form-control"
+//           value={assignment.points}
+//           onChange={(e) => setAssignment({ ...assignment, points: Number(e.target.value) })}
+//         />
+//       </div>
+
+//       <div className="row mb-4">
+//         <div className="col">
+//           <label className="form-label fw-bold">Due Date</label>
+//           <input
+//             type="date"
+//             className="form-control"
+//             value={assignment.dueDate}
+//             onChange={(e) => setAssignment({ ...assignment, dueDate: e.target.value })}
+//           />
+//         </div>
+//         <div className="col">
+//           <label className="form-label fw-bold">Available From</label>
+//           <input
+//             type="date"
+//             className="form-control"
+//             value={assignment.availableFrom}
+//             onChange={(e) => setAssignment({ ...assignment, availableFrom: e.target.value })}
+//           />
+//         </div>
+//         <div className="col">
+//           <label className="form-label fw-bold">Available Until</label>
+//           <input
+//             type="date"
+//             className="form-control"
+//             value={assignment.availableUntil}
+//             onChange={(e) => setAssignment({ ...assignment, availableUntil: e.target.value })}
+//           />
+//         </div>
+//       </div>
+
+//       <div className="d-flex justify-content-end">
+//         <Link to={`/Kambaz/Courses/${cid}/Assignments`} className="btn btn-secondary me-2">Cancel</Link>
+//         <button onClick={handleSave} className="btn btn-danger">Save</button>
+//       </div>
+//     </div>
+//   ) : null;
+// }
+
+
+
+
+
+
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-// import { useState, useEffect } from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import * as client from "./client";
 import { setAssignments } from "./reducer";
 
@@ -208,30 +324,59 @@ export default function AssignmentEditor() {
   const { assignments } = useSelector((state: any) => state.assignmentsReducer);
   const { currentUser } = useSelector((state: any) => state.accountReducer);
   const isFaculty = currentUser?.role === "FACULTY";
-
   const existing = assignments.find((a: any) => a._id === aid);
-  const [assignment, setAssignment] = useState(
-    existing || {
-      title: "",
-      description: "",
-      points: 100,
-      course: cid,
-      dueDate: "",
-      availableFrom: "",
-      availableUntil: "",
-      submissionType: "Online",
-    }
-  );
+
+  const [assignment, setAssignment] = useState({
+    title: "",
+    description: "",
+    points: 100,
+    course: cid,
+    dueDate: "",
+    availableFrom: "",
+    availableUntil: "",
+    submissionType: "Online",
+  });
+
+  useEffect(() => {
+    const loadAssignment = async () => {
+      if (aid && assignments.length === 0 && cid) {
+        const loadedAssignments = await client.findAssignmentsForCourse(cid);
+        dispatch(setAssignments(loadedAssignments));
+      }
+
+      const existing = assignments.find((a: any) => a._id === aid);
+      if (existing) {
+        setAssignment(existing);
+      }
+    };
+
+    loadAssignment();
+  }, [aid, assignments, cid, dispatch]);
+
+  // const handleSave = async () => {
+  //   if (!cid) return;
+  //   if (aid) {
+  //     await client.updateAssignment(assignment);
+  //   } else {
+  //     await client.createAssignment(cid, assignment);
+  //   }
+  //   const updated = await client.findAssignmentsForCourse(cid);
+  //   dispatch(setAssignments(updated));
+  //   navigate(`/Kambaz/Courses/${cid}/Assignments`);
+  // };
 
   const handleSave = async () => {
     if (!cid) return;
+    let updatedAssignment;
+  
     if (existing) {
-      await client.updateAssignment(assignment);
+      updatedAssignment = await client.updateAssignment(assignment);
     } else {
-      await client.createAssignment(cid, assignment);
+      updatedAssignment = await client.createAssignment(cid, assignment); // ✅ capture new assignment
     }
-    const updated = await client.findAssignmentsForCourse(cid);
-    dispatch(setAssignments(updated));
+  
+    const refreshed = await client.findAssignmentsForCourse(cid);
+    dispatch(setAssignments(refreshed));
     navigate(`/Kambaz/Courses/${cid}/Assignments`);
   };
 
@@ -295,8 +440,12 @@ export default function AssignmentEditor() {
       </div>
 
       <div className="d-flex justify-content-end">
-        <Link to={`/Kambaz/Courses/${cid}/Assignments`} className="btn btn-secondary me-2">Cancel</Link>
-        <button onClick={handleSave} className="btn btn-danger">Save</button>
+        <Link to={`/Kambaz/Courses/${cid}/Assignments`} className="btn btn-secondary me-2">
+          Cancel
+        </Link>
+        <button onClick={handleSave} className="btn btn-danger">
+          Save
+        </button>
       </div>
     </div>
   ) : null;

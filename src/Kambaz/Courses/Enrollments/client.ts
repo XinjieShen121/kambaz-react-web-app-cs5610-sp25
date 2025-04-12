@@ -40,25 +40,26 @@
 // };
 
 
+//delete
 
+// import axios from "axios";
+// const REMOTE_SERVER = import.meta.env.VITE_REMOTE_SERVER;
+// const ENROLLMENTS_API = `${REMOTE_SERVER}/api/enrollments`;
 
-import axios from "axios";
-const REMOTE_SERVER = import.meta.env.VITE_REMOTE_SERVER;
-const ENROLLMENTS_API = `${REMOTE_SERVER}/api/enrollments`;
+// export const enroll = async (userId: string, courseId: string) => {
+//   const response = await axios.post(ENROLLMENTS_API, { userId, courseId });
+//   return response.data;
+// };
 
-export const enroll = async (userId: string, courseId: string) => {
-  const response = await axios.post(ENROLLMENTS_API, { userId, courseId });
-  return response.data;
-};
+// export const unenroll = async (userId: string, courseId: string) => {
+//   const response = await axios.delete(ENROLLMENTS_API, {
+//     data: { userId, courseId },
+//   });
+//   return response.data;
+// };
 
-export const unenroll = async (userId: string, courseId: string) => {
-  const response = await axios.delete(ENROLLMENTS_API, {
-    data: { userId, courseId },
-  });
-  return response.data;
-};
-
-export const findEnrollmentsForUser = async (userId: string) => {
-  const response = await axios.get(`${ENROLLMENTS_API}/${userId}`);
-  return response.data;
-};
+// should NOT be using findEnrollmentsForUser anymore
+// export const findEnrollmentsForUser = async (userId: string) => {
+//   const response = await axios.get(`${ENROLLMENTS_API}/${userId}`);
+//   return response.data;
+// };
