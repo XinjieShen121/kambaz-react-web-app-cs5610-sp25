@@ -130,6 +130,7 @@ export default function EnrolledPeopleTable() {
       {selectedUserId && (
         <PeopleDetails uid={selectedUserId} onClose={() => setSelectedUserId(null)} />
       )}
+      
 
       <table className="table table-striped ms-5">
         <thead>
