@@ -365,14 +365,28 @@ export default function AssignmentEditor() {
   //   navigate(`/Kambaz/Courses/${cid}/Assignments`);
   // };
 
+  // const handleSave = async () => {
+  //   if (!cid) return;
+  //   let updatedAssignment;
+  
+  //   if (existing) {
+  //     updatedAssignment = await client.updateAssignment(assignment);
+  //   } else {
+  //     updatedAssignment = await client.createAssignment(cid, assignment); // ✅ capture new assignment
+  //   }
+  
+  //   const refreshed = await client.findAssignmentsForCourse(cid);
+  //   dispatch(setAssignments(refreshed));
+  //   navigate(`/Kambaz/Courses/${cid}/Assignments`);
+  // };
+
   const handleSave = async () => {
     if (!cid) return;
-    let updatedAssignment;
   
     if (existing) {
-      updatedAssignment = await client.updateAssignment(assignment);
+      await client.updateAssignment(assignment);
     } else {
-      updatedAssignment = await client.createAssignment(cid, assignment); // ✅ capture new assignment
+      await client.createAssignment(cid, assignment); // ✅ create directly
     }
   
     const refreshed = await client.findAssignmentsForCourse(cid);

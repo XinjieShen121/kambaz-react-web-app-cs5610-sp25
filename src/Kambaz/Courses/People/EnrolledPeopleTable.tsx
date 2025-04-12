@@ -93,9 +93,9 @@
 
 
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { Link } from "react-router-dom";
+//import { Link } from "react-router-dom";
 import { FaUserCircle } from "react-icons/fa";
 import PeopleDetails from "./Details";
 import { findUsersForCourse } from "../client"; // from Courses/client.ts
